@@ -3,3 +3,8 @@
 
 # JetBrains Rider
 .idea/
+
+.DS_Store
+*.bak
+*.tmp
+tmp
