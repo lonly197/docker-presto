@@ -8,7 +8,7 @@ docker network create vnet
 eval $(docker-machine env default)
 
 # build docker image
-docker build --rm --build-arg BUILD_DATE=${date +'%m/%d/%Y'} VERSION=0.178 HIVE_METASTORS_URI=thrift://dmp2:9083 -t lonly197/presto:v0.178 https://github.com/lonly197/docker-presto.git
+docker build --rm --build-arg BUILD_DATE=$(date +'%m/%d/%Y') --build-arg VERSION=0.178 --build-arg HIVE_METASTORS_URI=thrift://dmp2:9083 -t lonly197/presto:v0.178 https://github.com/lonly197/docker-presto.git
 
 # run containers
 docker run -p 8285:8080 -v /data00/presto/data:/presto --name presto -d lonly197/presto:lastest

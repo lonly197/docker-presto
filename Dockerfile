@@ -51,8 +51,12 @@ RUN set -x \
         zip \
 
     ## presto-server
-    && wget -q -O - hhttps://repo1.maven.org/maven2/com/facebook/presto/presto-server/${PRESTO_VERSION}/presto-server-${PRESTO_VERSION}.tar.gz \
-        | tar -xzf - -C /usr/local  \
+    && wget -q -O - https://repo1.maven.org/maven2/com/facebook/presto/presto-server/${PRESTO_VERSION}/presto-server-${PRESTO_VERSION}.tar.gz \
+        | tar -xvzf - -C /usr/local  \
+
+    ## presto-client
+    && wget -q -O /usr/local/bin/presto https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/${PRESTO_VERSION}/presto-cli-${PRESTO_VERSION}-executable.jar \
+    && chmod +x /usr/local/bin/presto \
 
     ## user/dir/permmsion
     && adduser -D  -g '' -s /sbin/nologin -u 1000 docker \
