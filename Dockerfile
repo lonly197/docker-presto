@@ -38,7 +38,7 @@ ENV HIVE_METASTORS_URI  ${HIVE_METASTORS_URI}
 
 RUN set -x \
     # fix 'ERROR: http://dl-cdn.alpinelinux.org/alpine/v3.6/main: BAD archive'
-    && echo http://mirror.yandex.ru/mirrors/alpine/v3.6/main > /etc/apk/repositories; \
+    && echo http://mirror.yandex.ru/mirrors/alpine/v3.6/main >> /etc/apk/repositories \
     && echo http://mirror.yandex.ru/mirrors/alpine/v3.6/community >> /etc/apk/repositories \
 
     && apk update \
