@@ -21,7 +21,7 @@ LABEL \
     org.label-schema.vcs-url="https://github.com/lonly197/docker-presto"
 
 ENV PRESTO_VERSION       ${VERSION}
-ENV PRESTO_HOME          /usr/local/presto-server
+ENV PRESTO_HOME          /usr/local/presto-server-${PRESTO_VERSION}
 ENV PRESTO_CONF_DIR      ${PRESTO_HOME}/etc
 ENV PRESTO_NODE_DATA_DIR /presto
 ENV PRESTO_LOG_DIR       /var/log/presto
@@ -62,8 +62,8 @@ RUN set -x \
         | tar -xvzf - -C /usr/local  \
 
     ## presto-client
-    && wget -q -O /usr/local/bin/presto https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/${PRESTO_VERSION}/presto-cli-${PRESTO_VERSION}-executable.jar \
-    && chmod +x /usr/local/bin/presto \
+    # && wget -q -O /usr/local/bin/presto https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/${PRESTO_VERSION}/presto-cli-${PRESTO_VERSION}-executable.jar \
+    # && chmod +x /usr/local/bin/presto \
 
     ## user/dir/permmsion
     && adduser -D  -g '' -s /sbin/nologin -u 1000 docker \
