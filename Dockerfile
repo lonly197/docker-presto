@@ -1,7 +1,7 @@
 FROM alpine:3.6
 
 ARG BUILD_DATE
-ARG VERSION=0.178
+ARG VERSION=0.187
 ARG JVM_MAX=16G
 ARG MAX_MEMORY=50G
 ARG NODE_MEMORY=1GB
@@ -58,12 +58,12 @@ RUN set -x \
         zip \
 
     ## presto-server
-    && wget -q -O - https://repo1.maven.org/maven2/com/facebook/presto/presto-server/${PRESTO_VERSION}/presto-server-${PRESTO_VERSION}.tar.gz \
+    && wget -q -O - http://maven.aliyun.com/nexus/service/local/repositories/central/content/com/facebook/presto/presto-server/${PRESTO_VERSION}/presto-server-${PRESTO_VERSION}.tar.gz \
         | tar -xvzf - -C /usr/local  \
 
     ## presto-client
-    # && wget -q -O /usr/local/bin/presto https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/${PRESTO_VERSION}/presto-cli-${PRESTO_VERSION}-executable.jar \
-    # && chmod +x /usr/local/bin/presto \
+    # && wget -q -O /usr/local/bin/presto http://maven.aliyun.com/nexus/service/local/repositories/central/content/com/facebook/presto/presto-cli/${PRESTO_VERSION}/presto-cli-0${PRESTO_VERSION}.jar \
+    # && chmod +x /usr/local/bin/presto-cli \
 
     ## user/dir/permmsion
     && adduser -D  -g '' -s /sbin/nologin -u 1000 docker \
