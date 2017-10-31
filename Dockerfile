@@ -5,7 +5,7 @@ ARG VERSION=0.178
 ARG JVM_MAX=16G
 ARG MAX_MEMORY=50G
 ARG NODE_MEMORY=1GB
-ARG HOSTNAME[=presto]
+ARG HOSTNAME=presto
 ARG HIVE_METASTORS_URI
 
 
@@ -36,8 +36,12 @@ ENV PATH        $PATH:${JAVA_HOME}/bin:${PRESTO_HOME}/bin
 
 ENV HIVE_METASTORS_URI  ${HIVE_METASTORS_URI}
 
+COPY config/etc/*  ${PRESTO_CONF_DIR}/
+COPY config/bin/*  /usr/local/bin/
+COPY config/lib/*  /usr/local/lib/
+
 RUN set -x \
-    # fix 'ERROR: http://dl-cdn.alpinelinux.org/alpine/v3.6/main: BAD archive'
+    ## fix 'ERROR: http://dl-cdn.alpinelinux.org/alpine/v3.6/main: BAD archive'
     && echo http://mirror.yandex.ru/mirrors/alpine/v3.6/main >> /etc/apk/repositories \
     && echo http://mirror.yandex.ru/mirrors/alpine/v3.6/community >> /etc/apk/repositories \
 
@@ -76,12 +80,12 @@ RUN set -x \
 
     ## cleanup
     && rm -rf /tmp/nativelib \
-    && apk del .builddeps 
-    
-COPY config/etc/*  ${PRESTO_CONF_DIR}/
-COPY config/bin/*  /usr/local/bin/
-COPY config/lib/*  /usr/local/lib/
+    && apk del .builddeps \
 
+    ## chmod script
+    && chmod +x R /usr/local/bin/*
+
+   
 VOLUME ["${PRESTO_LOG_DIR}", "${PRESTO_NODE_DATA_DIR}"]
 
 WORKDIR ${PRESTO_HOME}
