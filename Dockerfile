@@ -43,7 +43,6 @@ RUN set -x \
     ## fix 'ERROR: http://dl-cdn.alpinelinux.org/alpine/v3.6/main: BAD archive'
     && echo http://mirrors.aliyun.com/alpine/v3.6/main/ >> /etc/apk/repositories \
     && echo http://mirrors.aliyun.com/alpine/v3.6/community/>> /etc/apk/repositories \
-
     && apk update \
     && apk --no-cache add \
         bash \
@@ -56,15 +55,12 @@ RUN set -x \
     && apk --no-cache add --virtual .builddeps \
         openjdk8 \
         zip \
-
     ## presto-server
     && wget -q -O - http://maven.aliyun.com/nexus/service/local/repositories/central/content/com/facebook/presto/presto-server/${PRESTO_VERSION}/presto-server-${PRESTO_VERSION}.tar.gz \
         | tar -xvzf - -C /usr/local  \
-
     ## presto-client
     # && wget -q -O /usr/local/bin/presto http://maven.aliyun.com/nexus/service/local/repositories/central/content/com/facebook/presto/presto-cli/${PRESTO_VERSION}/presto-cli-0${PRESTO_VERSION}.jar \
     # && chmod +x /usr/local/bin/presto-cli \
-
     ## user/dir/permmsion
     && adduser -D  -g '' -s /sbin/nologin -u 1000 docker \
     && adduser -D  -g '' -s /sbin/nologin presto \
@@ -76,11 +72,9 @@ RUN set -x \
         ${PRESTO_HOME} \
         ${PRESTO_LOG_DIR} \
         ${PRESTO_NODE_DATA_DIR} \
-
     ## cleanup
     && rm -rf /tmp/nativelib \
     && apk del .builddeps \
-
     ## chmod script
     && chmod -R +x /usr/local/bin/*
 
