@@ -11,10 +11,10 @@ eval $(docker-machine env default)
 docker build --rm --build-arg BUILD_DATE=$(date +'%m/%d/%Y') --build-arg VERSION=0.187 --build-arg HIVE_METASTORS_URI=thrift://dmp2:9083 -t lonly/presto:0.187 https://github.com/lonly197/docker-presto.git
 
 # run container for presto-server-coordinator
-docker run -p 8200:8080 -v /data00/presto/data:/presto --name presto -d lonly/presto:0.187 coordinator
+docker run -p 8200:8080 -v /data00/docerk-presto:/presto --name presto -d lonly/presto:0.187 coordinator
 
 # run container for presto-server-worker
-docker run -p 8200:8080 -v /data00/presto/data:/presto --name presto -d lonly/presto:0.187 worker
+docker run -p 8200:8080 -v /data00/docerk-presto:/presto --name presto -d lonly/presto:0.187 worker
 
 $ docker ps
 
