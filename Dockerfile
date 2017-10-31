@@ -41,8 +41,8 @@ COPY config/lib/*  /usr/local/lib/
 
 RUN set -x \
     ## fix 'ERROR: http://dl-cdn.alpinelinux.org/alpine/v3.6/main: BAD archive'
-    && echo http://mirror.yandex.ru/mirrors/alpine/v3.6/main >> /etc/apk/repositories \
-    && echo http://mirror.yandex.ru/mirrors/alpine/v3.6/community >> /etc/apk/repositories \
+    && echo http://mirrors.aliyun.com/alpine/v3.6/main/ >> /etc/apk/repositories \
+    && echo http://mirrors.aliyun.com/alpine/v3.6/community/>> /etc/apk/repositories \
 
     && apk update \
     && apk --no-cache add \
