@@ -35,10 +35,6 @@ ENV PATH        $PATH:${JAVA_HOME}/bin:${PRESTO_HOME}/bin
 
 ENV HIVE_METASTORS_URI  ${HIVE_METASTORS_URI}
 
-COPY config/etc/*  ${PRESTO_CONF_DIR}/
-COPY config/bin/*  /usr/local/bin/
-COPY config/lib/*  /usr/local/lib/
-
 RUN set -x \
     ## fix 'ERROR: http://dl-cdn.alpinelinux.org/alpine/v3.6/main: BAD archive'
     && echo http://mirrors.aliyun.com/alpine/v3.6/main/ >> /etc/apk/repositories \
@@ -74,10 +70,15 @@ RUN set -x \
         ${PRESTO_NODE_DATA_DIR} \
     ## cleanup
     && rm -rf /tmp/nativelib \
-    && apk del .builddeps \
+    && apk del .builddeps   
+
+COPY config/etc/*  ${PRESTO_CONF_DIR}/
+COPY config/bin/*  /usr/local/bin/
+COPY config/lib/*  /usr/local/lib/
+
+RUN set -x \
     ## chmod script
     && chmod -R +x /usr/local/bin/*
-
    
 VOLUME ["${PRESTO_LOG_DIR}", "${PRESTO_NODE_DATA_DIR}"]
 
