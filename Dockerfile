@@ -83,7 +83,7 @@ RUN set -x \
     && apk del .builddeps \
 
     ## chmod script
-    && chmod +x R /usr/local/bin/*
+    && chmod R +x /usr/local/bin/*
 
    
 VOLUME ["${PRESTO_LOG_DIR}", "${PRESTO_NODE_DATA_DIR}"]
