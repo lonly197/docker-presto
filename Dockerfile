@@ -72,7 +72,7 @@ RUN set -x \
     && rm -rf /tmp/nativelib \
     && apk del .builddeps   
 
-COPY config/etc/*  ${PRESTO_CONF_DIR}/
+COPY config/etc/  ${PRESTO_CONF_DIR}/
 COPY config/bin/*  /usr/local/bin/
 COPY config/lib/*  /usr/local/lib/
 
